@@ -9,7 +9,13 @@ variable "AWS_SECRET_KEY" {
   sensitive   = true
 }
 variable "AWS_REGION" {
-  default = "us-east-2"
+  type        = string
+  description = "AWS region"
+  validation {
+    condition     = contains(["us-east-1", "us-east-2"], var.AWS_REGION)
+    error_message = "Unsupported Azure Region specified. Supported regions include: us-east-1, us-east2."
+  }
+
 }
 variable "Security_Group" {
   type    = list(any)
